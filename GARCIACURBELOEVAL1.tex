@@ -1,0 +1,116 @@
+\documentclass[fleqn]{article}
+
+%\pgfplotsset{compat=1.17}
+
+\usepackage{mathexam}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{systeme}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{dsfont} %Numeros reales, naturales...
+\usepackage{cancel}
+\usepackage{hyperref}
+
+
+%\graphicspath{{images/}}
+\newcommand*{\QED}{\hfill\ensuremath{\square}}
+
+
+%Estructura de ecuaciones
+%\setlength{\textwidth}{15cm} \setlength{\oddsidemargin}{5mm}
+%\setlength{\textheight}{23cm} \setlength{\topmargin}{-1cm}
+
+
+\author{David García Curbelo}
+%\title{}
+
+\pagestyle{empty}
+
+
+\def\R{\mathds{R}}
+\def\Z{\mathds{Z}}
+\def\N{\mathds{N}}
+\def\X{\mathbf{X}}
+
+\def\sup{$^2$}
+
+\def\next{\quad \Rightarrow \quad}
+
+\begin{document}
+    \setcounter{page}{1}
+    \pagestyle{plain}
+
+    \begin{center}
+        {\LARGE\bf{Análisis Funcional}} \\
+        {\large\bf{Evaluación 2, David García Curbelo}}\\
+    \end{center}
+
+    \textbf{Ejercicio 1. Dada una sucesión $a = \{a(n)\}$ en $l_1$, se define, para cada $x \in c_0$, la sucesión
+        $T_a(x)(n) = \sum_{k=n}^{\infty} a(k) x(k)$, $n \in \N$.}\\
+        \begin{enumerate}
+            \item[]
+            \item[a)] \textbf{Probar que $T_a(x) \in c_0$ para todo $x \in c_0$.}
+                        Como $a \in l_1$ se tiene que la serie $\sum_{k\geq 1} a(k)$ es absolutamente convergente.
+                        Además, sabemos por hipótesis que $x$ es una sucesión convergente a cero, luego $a(k)x(k)$ 
+                        tiende a cero, y por tanto tenemos que $T_a(x)$ tiende a cero.
+            \item[]
+            \item[b)] \textbf{Probar que $T_a : c_0 \longrightarrow c_0$ es lineal, continua y calcular su norma.}
+                        Veamos que es lineal:
+                        $$T_a (\lambda x + \mu y)(n) = \sum_{k=n}^{\infty} a(k) \left(\lambda x(k) + \mu y(k)\right) = 
+                        \lambda \sum_{k=n}^{\infty} a(k)  x(k) + \mu \sum_{k=n}^{\infty} a(k) y(k) = $$ 
+                        $$= \lambda T_a ( x)(n) + \mu T_a (y)(n), \quad \forall \lambda, \mu \in \R, \quad \forall x, y \in c_0$$
+                        Veamos ahora que es continua. Por un resultado visto en el ejercicio numero 1 de la realción del tema 2, tenemos que
+                        $$\|x\|_{\infty} = \max_{n\in \N} |x(n)|$$
+                        Por ello consiferemos un $x \in c_0$ tal que $\|x\|_{\infty} \leq 1$, entonces tenemos
+                        $$\| T_a (x)(n) \| = \left| \sum_{k=n}^{\infty} a(k) x(k) \right| \leq \sum_{k=n}^{\infty} |a(k)| |x(k)| \leq \|x\|_{\infty}\sum_{k=n}^{\infty} |a(k)| \leq $$
+                        $$\leq \|x\|_{\infty} \sum_{k=1}^{\infty} |a(k)| = L\|x\|_{\infty}, \quad L\in \R^+$$
+        \end{enumerate}
+
+
+
+
+
+    
+
+    \newpage
+
+
+    \textbf{Ejercicio 2. Sea $X = C([0 , 1])$. Se define $T : X \longrightarrow X$ mediante $T(f)(x) = \int_0^x f(t^2) dt$.}
+        \begin{enumerate}
+            \item[]
+            \item[a)] \textbf{Probar que $T$ es lineal, continua e inyectiva.}
+                    Veamos que $T$ es lineal:
+                    $$T(\lambda f + \mu g)(x) = \int_0^x \lambda f(t^2) + \mu g(t^2) dt = 
+                    \mu \int_0^x  g(t^2) dt + \lambda \int_0^x  f(t^2) dt = $$
+                    $$= \lambda T( f)(x) + \mu T( g)(x), \quad \forall \lambda, \mu \in \R, \quad \forall f, g \in C([0,1])$$ 
+                    Veamos ahora la continuidad.
+                    Consideremos una $f \in X$ tal que $\left\| f \right\|_{\infty} \leq 1$. Entonces tenemos:
+                    $$\left\| T(f)(x) \right\| = \max_{x\in [0,1]} \left| \int_0^x  f(t^2) dt \right| \leq 
+                    \max_{x\in [0,1]}  \int_0^x \left| f(t^2) \right| dt  \leq  \max_{x\in [0,1]}  \int_0^x 1 dt 
+                    \leq \max_{x\in [0,1]} x = 1$$ 
+                    $$\next \| T(f)(x) \| \leq 1$$
+                    Veamos la inyectividad. Sean $f, g \in X$ tales que $T(f)(x)=T(g)(x) \thinspace \forall x in [0,1]$. Entonces:
+                    $$0 = T(f)(x) - T(g)(x) = T(f-g)(x) = \int_0^x f(t^2) - g(t^2) dt$$
+                    Como $f-g$ es continua, tenemos que $T$ es derivable, y por el Teorema Fundamental del Cálculo tenemos:
+                    $$f(x^2) - g(x^2)= 0 \next f(x^2) = g(x^2) \quad \forall x \in [0,1]$$
+                    $$\next f(x) = g(x) \quad \forall x \in [0,1]$$
+            \item[]  
+            \item[b)] \textbf{Calcular la norma de $T$.}
+                    Veamos ahora su norma. Por definición, tenemos que
+                    $$\| T \| = Sup_{\substack{f \in X \\ \|f\| \leq 1}} \left\{ \| T(f)(x) \| \right\} \leq 1$$ 
+                    Vemos que $\exists f \in X$ tal que se cumple $\|f\| \leq 1$ con el que se tiene $\| T(f)(x) \| = 1$. Por ello,
+                    si tomamos $f(x) = 1 \thinspace \forall t \in [0,1]$ tenemos:
+                    $$T(f)(x) = \int_0^x 1 dt = x  \next  \max_{x\in [0,1]} \left| \int_0^x  1 dt \right| = 1 \next \|T\| = 1$$
+            \item[] 
+            \item[c)] \textbf{Probar que $T^{-1} : T(X) \longrightarrow X$ no es continua.}  
+            \item[]
+        \end{enumerate}
+        
+   
+\end{document}
